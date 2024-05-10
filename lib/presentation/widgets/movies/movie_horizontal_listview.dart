@@ -103,6 +103,12 @@ class _Slide extends StatelessWidget {
               maxLines: 2,
             ),
           ),
+          Row(
+            children: [
+              Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
+              Text('${movie.voteAverage}'),
+            ],
+          )
         ],
       ),
     );
