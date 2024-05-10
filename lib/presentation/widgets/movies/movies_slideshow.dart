@@ -45,7 +45,7 @@ class _Slide extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: const [
           BoxShadow(
-              color: Colors.black45, blurRadius: 10, offset: Offset(0, 10))
+              color: Colors.black12, blurRadius: 10, offset: Offset(0, 10))
         ]);
 
     return Padding(
@@ -60,7 +60,7 @@ class _Slide extends StatelessWidget {
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress != null) {
                   return const DecoratedBox(
-                      decoration: BoxDecoration(color: Colors.black26));
+                      decoration: BoxDecoration(color: Colors.white));
                 }
                 return FadeIn(child: child);
               },

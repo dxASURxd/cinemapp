@@ -3,6 +3,7 @@ import 'package:cinemapedia/presentation/providers/movies/movies_slideshow_provi
 import 'package:cinemapedia/presentation/widgets/movies/movies_slideshow.dart';
 import 'package:cinemapedia/presentation/widgets/shared/custom_appbar.dart';
 import 'package:cinemapedia/presentation/widgets/shared/custom_bottom_navigationbar.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,9 +44,12 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     return Column(
       children: [
         const CustomAppbar(),
-        MoviesSlideshow(
+        MoviesSlideshow(movies: nowPlayingMovies),
+        MovieHorizonalListview(
           movies: nowPlayingMovies,
-        )
+          title: 'En cines',
+          subTitle: 'si',
+        ),
       ],
     );
   }
