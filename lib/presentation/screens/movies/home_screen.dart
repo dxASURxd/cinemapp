@@ -1,11 +1,10 @@
+import 'package:excel/excel.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_providers.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_slideshow_provider.dart';
-import 'package:cinemapedia/presentation/widgets/movies/movies_slideshow.dart';
-import 'package:cinemapedia/presentation/widgets/shared/custom_appbar.dart';
-import 'package:cinemapedia/presentation/widgets/shared/custom_bottom_navigationbar.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cinemapedia/ExportToExcel.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
@@ -49,7 +48,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           movies: nowPlayingMovies,
           title: 'En cines',
           subTitle: 'si',
+          loadNextPage: () =>
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
         ),
+        ExportToExcelData(movies: nowPlayingMovies),
       ],
     );
   }
