@@ -1,8 +1,9 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 
-class MovieHorizonalListview extends StatelessWidget {
+class MovieHorizonalListview extends StatefulWidget {
   final List<Movie> movies;
   final String? title;
   final String? subTitle;
@@ -16,20 +17,45 @@ class MovieHorizonalListview extends StatelessWidget {
       this.loadNextPage});
 
   @override
+  State<MovieHorizonalListview> createState() => _MovieHorizonalListviewState();
+}
+
+class _MovieHorizonalListviewState extends State<MovieHorizonalListview> {
+  final scrollControler = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollControler.addListener(() {
+      if (widget.loadNextPage == null) return;
+      if ((scrollControler.position.pixels + 200) >=
+          scrollControler.position.maxScrollExtent) {
+        widget.loadNextPage!();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    scrollControler.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return SizedBox(
       height: 350,
       child: Column(
         children: [
-          if (title != null || subTitle != null)
-            _Title(title: title, subTitle: subTitle),
+          if (widget.title != null || widget.subTitle != null)
+            _Title(title: widget.title, subTitle: widget.subTitle),
           Expanded(
             child: ListView.builder(
-              itemCount: movies.length,
+              controller: scrollControler,
+              itemCount: widget.movies.length,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                return _Slide(movie: movies[index]);
+                return _Slide(movie: widget.movies[index]);
               },
             ),
           )
@@ -100,13 +126,16 @@ class _Slide extends StatelessWidget {
             width: 150,
             child: Text(
               movie.title,
-              maxLines: 2,
+              maxLines: 1,
             ),
           ),
           Row(
             children: [
               Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
+              const SizedBox(width: 3),
               Text('${movie.voteAverage}'),
+              const SizedBox(width: 13),
+              Text(HuanFormats.number(movie.popularity)),
             ],
           )
         ],

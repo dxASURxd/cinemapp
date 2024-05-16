@@ -1,4 +1,3 @@
-import 'package:excel/excel.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_providers.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_slideshow_provider.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
@@ -37,7 +36,6 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    // final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final nowPlayingMovies = ref.watch(moviesSlidesShowProvider);
 
     return Column(
@@ -45,13 +43,13 @@ class _HomeViewState extends ConsumerState<_HomeView> {
         const CustomAppbar(),
         MoviesSlideshow(movies: nowPlayingMovies),
         MovieHorizonalListview(
-          movies: nowPlayingMovies,
-          title: 'En cines',
-          subTitle: 'si',
-          loadNextPage: () =>
-              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
-        ),
-        ExportToExcelData(movies: nowPlayingMovies),
+            movies: nowPlayingMovies,
+            title: 'En cines',
+            subTitle: 'si',
+            loadNextPage: () => {
+                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                }),
+        // ExportToExcelData(movies: nowPlayingMovies),
       ],
     );
   }

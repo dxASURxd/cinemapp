@@ -31,9 +31,12 @@ class _ExportToExcelDataState extends State<ExportToExcelData> {
         'Votes';
     sheet.cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: 0)).value =
         'Rating';
+    sheet.cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: 0)).value =
+        'value';
 
     for (var movieIndex = 0; movieIndex < widget.movies.length; movieIndex++) {
       final movie = widget.movies[movieIndex];
+
       sheet
           .cell(CellIndex.indexByColumnRow(
               columnIndex: 0, rowIndex: movieIndex + 1))
